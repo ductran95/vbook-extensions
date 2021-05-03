@@ -1,7 +1,7 @@
 {
   "metadata": {
     "name": "Hentai2Read",
-    "author": "Nhocconsr",
+    "author": "purple_sunset",
     "version": 1,
     "source": "https://hentai2read.com",
     "regexp": "(www.)?hentai2read.com/[^/]+/?",
