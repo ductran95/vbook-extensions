@@ -1,5 +1,5 @@
 function execute(url) {
-    var doc = Http.get(url).string();
+    var doc = Http.get(url).html();
     var el = doc.select("div.chapter-content img");
 
     var data = [];
