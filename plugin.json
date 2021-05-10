@@ -20,7 +20,7 @@
       "path": "https://raw.githubusercontent.com/ductran95/vbook-extensions/develop/manhwa18/plugin.zip",
       "version": 1,
       "source": "https://manhwa18.com",
-      "icon": "https://manhwa18.com/favicon.ico",
+      "icon": "https://raw.githubusercontent.com/ductran95/vbook-extensions/develop/manhwa18/icon.png",
       "description": "Read Manhwa, manga online, manhwa engsub, manhwa mobile",
       "tag": "nsfw"
     }
