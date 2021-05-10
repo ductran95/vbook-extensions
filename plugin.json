@@ -7,7 +7,7 @@
     {
       "name": "Hentai2Read",
       "author": "purple_sunset",
-      "path": "https://raw.githubusercontent.com/ductran95/vbook-extensions/develop/hentai2read/plugin.zip",
+      "path": "https://raw.githubusercontent.com/purple-sunset/vbook-extensions/develop/hentai2read/plugin.zip",
       "version": 1,
       "source": "https://hentai2read.com",
       "icon": "https://hentai2read.com/apple-touch-icon.png",
@@ -17,10 +17,10 @@
     {
       "name": "manhwa18",
       "author": "purple_sunset",
-      "path": "https://raw.githubusercontent.com/ductran95/vbook-extensions/develop/manhwa18/plugin.zip",
+      "path": "https://raw.githubusercontent.com/purple-sunset/vbook-extensions/develop/manhwa18/plugin.zip",
       "version": 4,
       "source": "https://manhwa18.com",
-      "icon": "https://raw.githubusercontent.com/ductran95/vbook-extensions/develop/manhwa18/icon.png",
+      "icon": "https://raw.githubusercontent.com/purple-sunset/vbook-extensions/develop/manhwa18/icon.png",
       "description": "Read Manhwa, manga online, manhwa engsub, manhwa mobile",
       "tag": "nsfw"
     }
