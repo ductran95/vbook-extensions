@@ -15,13 +15,23 @@
       "tag": "nsfw"
     },
     {
-      "name": "manhwa18",
+      "name": "Manhwa18",
       "author": "purple_sunset",
       "path": "https://raw.githubusercontent.com/purple-sunset/vbook-extensions/develop/manhwa18/plugin.zip",
-      "version": 4,
+      "version": 6,
       "source": "https://manhwa18.com",
       "icon": "https://raw.githubusercontent.com/purple-sunset/vbook-extensions/develop/manhwa18/icon.png",
       "description": "Read Manhwa, manga online, manhwa engsub, manhwa mobile",
+      "tag": "nsfw"
+    },
+    {
+      "name": "Toonily",
+      "author": "purple_sunset",
+      "path": "https://raw.githubusercontent.com/purple-sunset/vbook-extensions/develop/toonily/plugin.zip",
+      "version": 1,
+      "source": "https://toonily.com/",
+      "icon": "https://raw.githubusercontent.com/purple-sunset/vbook-extensions/develop/toonily/icon.png",
+      "description": "Read English Korean Manhwa and webtoons Online For Free at Toonily",
       "tag": "nsfw"
     }
   ]

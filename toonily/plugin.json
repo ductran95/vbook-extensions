@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "name": "Manhwa18",
+    "name": "Toonily",
     "author": "purple_sunset",
-    "version": 4,
-    "source": "https://manhwa18.com",
-    "regexp": "(www.)?manhwa18.com/[^/]+/?",
-    "description": "Read Manhwa, manga online, manhwa engsub, manhwa mobile",
+    "version": 1,
+    "source": "https://toonily.com/",
+    "regexp": "(www.)?toonily.com/[^/]+/?",
+    "description": "Read English Korean Manhwa and webtoons Online For Free at Toonily",
     "local": "vi-VN",
     "language": "javascript",
     "type": "comic",

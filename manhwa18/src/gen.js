@@ -1,6 +1,6 @@
 function execute(url, page) {
     if (!page) page = '1';
-    const doc = Http.get(url + "&page=" + page).params({
+    const doc = Http.get(url).params({
         page: page,
         listType: 'pagination',
         sort: 'last_update',
