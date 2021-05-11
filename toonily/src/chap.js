@@ -5,7 +5,7 @@ function execute(url) {
     var data = [];
     for (var i = 0; i < el.size(); i++) {
         var e = el.get(i);
-        var img = e.attr("src");
+        var img = e.attr("src").trimStart();
         if (img) {
             data.push(img);
         }

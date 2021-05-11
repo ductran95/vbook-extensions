@@ -12,8 +12,8 @@ function execute(url, page) {
         data.push({
             name: e.select("div.item-summary div.post-title").text(),
             link: e.select("div.item-thumb > a").attr("href"),
-            cover: e.select("div.item-thumb > a > img").attr("src"),
-            description: e.select("div.item-thumb > a > img").attr("alt"),
+            cover: e.select("div.item-thumb > a > img").first().attr("src"),
+            description: e.select("div.item-summary div.list-chapter div.chapter-item:nth-child(1) .chapter a").text(),
             host: "https://toonily.com"
         })
     }

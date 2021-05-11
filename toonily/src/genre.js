@@ -1,42 +1,14 @@
 function execute() {
-    return Response.success([
-        {title: "Action", input: "https://toonily.com/webtoon-genre/action-webtoon/", script: "gen.js"},
-        {title: "Adult", input: "https://toonily.com/webtoon-genre/adult-webtoon/", script: "gen.js"},
-        {title: "Adventure", input: "https://toonily.com/webtoon-genre/adventure-webtoon/", script: "gen.js"},
-        {title: "All Ages", input: "https://toonily.com/webtoon-genre/all-ages/", script: "gen.js"},
-        {title: "Comedy", input: "https://toonily.com/webtoon-genre/comedy-webtoon/", script: "gen.js"},
-        {title: "Crime", input: "https://toonily.com/webtoon-genre/crime/", script: "gen.js"},
-        {title: "Drama", input: "https://toonily.com/webtoon-genre/drama-webtoon/", script: "gen.js"},
-        {title: "Fantasy", input: "https://toonily.com/webtoon-genre/fantasy-webtoon/", script: "gen.js"},
-        {title: "Gender Bender", input: "https://toonily.com/webtoon-genre/gender-bender/", script: "gen.js"},
-        {title: "Gossip", input: "https://toonily.com/webtoon-genre/gossip/", script: "gen.js"},
-        {title: "Harem", input: "https://toonily.com/webtoon-genre/harem-webtoon/", script: "gen.js"},
-        {title: "Historical", input: "https://toonily.com/webtoon-genre/webtoon-historical/", script: "gen.js"},
-        {title: "Horror", input: "https://toonily.com/webtoon-genre/horror-webtoon/", script: "gen.js"},
-        {title: "Incest", input: "https://toonily.com/webtoon-genre/incest/", script: "gen.js"},
-        {title: "Isekai", input: "https://toonily.com/webtoon-genre/isekai/", script: "gen.js"},
-        {title: "Josei", input: "https://toonily.com/webtoon-genre/josei-manga/", script: "gen.js"},
-        {title: "Magic", input: "https://toonily.com/webtoon-genre/magic/", script: "gen.js"},
-        {title: "Martial Arts", input: "https://toonily.com/webtoon-genre/martial-arts/", script: "gen.js"},
-        {title: "Mature", input: "https://toonily.com/webtoon-genre/mature-webtoon/", script: "gen.js"},
-        {title: "Mystery", input: "https://toonily.com/webtoon-genre/mystery-webtoon/", script: "gen.js"},
-        {title: "NTR", input: "https://toonily.com/webtoon-genre/ntr-webtoon/", script: "gen.js"},
-        {title: "Office", input: "https://toonily.com/webtoon-genre/office/", script: "gen.js"},
-        {title: "Psychological", input: "https://toonily.com/webtoon-genre/psychological-webtoon/", script: "gen.js"},
-        {title: "Romance", input: "https://toonily.com/webtoon-genre/romance-webtoon/", script: "gen.js"},
-        {title: "School life", input: "https://toonily.com/webtoon-genre/school-life-webtoon/", script: "gen.js"},
-        {title: "Sci-Fi", input: "https://toonily.com/webtoon-genre/scifi-webtoon/", script: "gen.js"},
-        {title: "Seinen", input: "https://toonily.com/webtoon-genre/seinen-webtoon/", script: "gen.js"},
-        {title: "Shoujo", input: "https://toonily.com/webtoon-genre/shoujo/", script: "gen.js"},
-        {title: "Shounen", input: "https://toonily.com/webtoon-genre/shounen-webtoon/", script: "gen.js"},
-        {title: "Slice of Life", input: "https://toonily.com/webtoon-genre/sliceoflife-webtoon/", script: "gen.js"},
-        {title: "Sports", input: "https://toonily.com/webtoon-genre/sports/", script: "gen.js"},
-        {title: "Supernatural", input: "https://toonily.com/webtoon-genre/supernatural-webtoon/", script: "gen.js"},
-        {title: "Thriller", input: "https://toonily.com/webtoon-genre/thriller-webtoon/", script: "gen.js"},
-        {title: "Tragedy", input: "https://toonily.com/webtoon-genre/tragedy/", script: "gen.js"},
-        {title: "Uncensored", input: "https://toonily.com/webtoon-genre/uncensored/", script: "gen.js"},
-        {title: "Vanilla", input: "https://toonily.com/webtoon-genre/vanilla-webtoon/", script: "gen.js"},
-        {title: "Yaoi", input: "https://toonily.com/webtoon-genre/yaoi-webtoon/", script: "gen.js"},
-        {title: "Yuri", input: "https://toonily.com/webtoon-genre/yuri-webtoon/", script: "gen.js"},
-    ]);
+    const doc = Http.get("https://toonily.com/webtoons/").html();
+    const el = doc.select("div.genres_wrap .genres li a");
+    const data = [];
+    for (var i = 0; i < el.size(); i++) {
+        var e = el.get(i);
+        data.push({
+           title: e.text(),
+           input: e.attr('href'),
+           script: 'gen.js'
+        });
+    }
+    return Response.success(data);
 }
