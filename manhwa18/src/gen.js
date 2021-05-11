@@ -18,7 +18,7 @@ function execute(url, page) {
             name: e.select("div.media div.media-body .media-heading > a").text(),
             link: e.select("div.media div.media-body .media-heading > a").attr("href"),
             cover: e.select("div.media img.img-thumb").first().attr("src"),
-            description: e.select(".chapters a").first().text(),
+            description: 'Chapter ' + e.select("div.media div.media-body > a").text(),
             host: "https://manhwa18.com"
         })
     }
