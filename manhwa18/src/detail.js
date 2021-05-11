@@ -7,7 +7,7 @@ function execute(url) {
         author: doc.select("div.info-manga ul.manga-info > li:contains(Author) small a").text(),
         description: doc.select("div.info-manga div.row:contains(Description) p").text(),
         category: doc.select("div.info-manga ul.manga-info > li:contains(Genre) small a").text(),
-        detail: doc.select("div.info-manga ul.manga-info li:gt(1)").html(),
+        detail: doc.select("div.info-manga ul.manga-info li:gt(1)").map(x=>x.html()).join('\n'),
         host: "https://manhwa18.com",
         nsfw: true
     });
