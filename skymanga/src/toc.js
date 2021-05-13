@@ -8,7 +8,7 @@ function execute(url) {
         manga: bookId
     }).html();
 
-    var el = chapDoc.select(".wp-manga-chapter a")
+    var el = chapDoc.select(".wp-manga-chapter a:not(.c-new-tag)")
     const data = [];
     for (var i = el.size() - 1; i >= 0; i--) {
         var e = el.get(i);
