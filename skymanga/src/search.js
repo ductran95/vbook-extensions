@@ -16,7 +16,7 @@ function execute(key, page) {
         data.push({
             name: e.select("div.tab-summary div.post-title").text(),
             link: e.select("div.tab-thumb > a").attr("href"),
-            cover: e.select("div.tab-thumb > a > img").attr("src"),
+            cover: e.select("div.tab-thumb > a > img").attr("src").replace('\t','').replace('\n',''),
             description: e.select("div.tab-summary div.post-content div.mg_status div.summary-content").text(),
             host: "https://skymanga.co"
         })
