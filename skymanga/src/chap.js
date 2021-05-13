@@ -1,17 +1,6 @@
 function execute(url) {
     var resp = Http.get(url).string();
-    var respMatch = resp.match(new RegExp("<body(.*)</body>"));
-    var doc = Html.parse(respMatch[0]);
-    var el = doc.select("img.wp-manga-chapter-img");
-
-    var data = [];
-    for (var i = 0; i < el.size(); i++) {
-        var e = el.get(i);
-        var img = e.attr("data-src").replace('\t','').replace('\n','');
-        if (img) {
-            data.push(img);
-        }
-    }
+    var data = ["https://skymanga.co/wp-content/uploads/WP-manga/data/manga_5f47ed8a91b56/1c2d69c82e24514bd82915435257d072/1.jpg"];
 
     return Response.success(data);
 }
