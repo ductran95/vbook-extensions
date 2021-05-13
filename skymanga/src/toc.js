@@ -1,7 +1,14 @@
 function execute(url) {
     var doc = Http.get(url).html();
 
-    var el = doc.select(".wp-manga-chapter a")
+    var bookId = doc.select("#manga-chapters-holder").attr("data-id");
+
+    var chapDoc = Http.post('https://skymanga.co/wp-admin/admin-ajax.php').params({
+        action: 'manga_get_chapters',
+        manga: bookId
+    }).html();
+
+    var el = chapDoc.select(".wp-manga-chapter a")
     const data = [];
     for (var i = el.size() - 1; i >= 0; i--) {
         var e = el.get(i);
