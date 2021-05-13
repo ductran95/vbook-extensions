@@ -1,6 +1,6 @@
 function execute(url) {
     var resp = Http.get(url).string();
-    var respMatch = resp.match("<body(.*)</body>");
+    var respMatch = resp.match(new RegExp("<body(.*)</body>"));
     var doc = Jsoup.parse(respMatch[0]);
     var el = doc.select("img.wp-manga-chapter-img");
 
