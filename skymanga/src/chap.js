@@ -1,6 +1,6 @@
 function execute(url) {
     var doc = Http.get(url).html();
-    var el = doc.select(".reading-content img");
+    var el = doc.select("img.wp-manga-chapter-img");
 
     var data = [];
     for (var i = 0; i < el.size(); i++) {

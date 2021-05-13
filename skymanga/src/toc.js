@@ -8,15 +8,17 @@ function execute(url) {
         manga: bookId
     }).html();
 
-    var el = chapDoc.select(".wp-manga-chapter a:not(.c-new-tag)")
+    var el = chapDoc.select(".wp-manga-chapter a")
     const data = [];
     for (var i = el.size() - 1; i >= 0; i--) {
         var e = el.get(i);
-        data.push({
-            name: e.text(),
-            url: e.attr("href"),
-            host: "https://skymanga.co"
-        })
+        if(!e.attr('title')){
+            data.push({
+                name: e.text(),
+                url: e.attr("href"),
+                host: "https://skymanga.co"
+            })
+        }
     }
 
     return Response.success(data);
