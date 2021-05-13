@@ -1,0 +1,22 @@
+{
+  "metadata": {
+    "name": "Skymanga",
+    "author": "purple_sunset",
+    "version": 1,
+    "source": "https://skymanga.co/",
+    "regexp": "(www.)?skymanga.co/[^/]+/?",
+    "description": "Skymanga the best website and the fastest for manga and webtoon",
+    "local": "vi-VN",
+    "language": "javascript",
+    "type": "comic",
+    "tag": "nsfw"
+  },
+  "script": {
+    "home": "home.js",
+    "genre": "genre.js",
+    "detail": "detail.js",
+    "search": "search.js",
+    "toc": "toc.js",
+    "chap": "chap.js"
+  }
+}
