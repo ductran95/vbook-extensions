@@ -1,6 +1,13 @@
 function execute(url, page) {
     if (!page) page = '1';
-    const doc = Http.get(url + '/page/' + page).html();
+    var newUrl = url + '/page/' + page;
+
+    // Bypass cloudflare
+    var browser = Engine.newBrowser();
+    browser.launch(newUrl, 15*1000);
+    var doc = browser.html();
+
+    browser.close();
 
     var next = doc.select("div.wp-pagenavi").select("span.current + a").text()
 

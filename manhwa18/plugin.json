@@ -2,9 +2,9 @@
   "metadata": {
     "name": "Manhwa18",
     "author": "purple_sunset",
-    "version": 13,
+    "version": 14,
     "source": "https://manhwa18.com",
-    "regexp": "(www.)?manhwa18.com/[^/]+/?",
+    "regexp": "(www.)?manhwa18.com.*",
     "description": "Read Manhwa, manga online, manhwa engsub, manhwa mobile",
     "local": "vi-VN",
     "language": "javascript",

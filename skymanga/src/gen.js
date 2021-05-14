@@ -1,8 +1,9 @@
 function execute(url, page) {
-    if (!page) page = 1;
+    if (!page) page = '1';
     const doc = Http.get(url + '/page/' + page).html();
 
     var next = doc.select(".nav-previous").size() > 0;
+    var nextPage = next ? (Number(page) + 1).toString() : page;
 
     const el = doc.select(".page-item-detail.manga")
 
@@ -18,5 +19,5 @@ function execute(url, page) {
         })
     }
 
-    return Response.success(data, next ? page + 1 : page )
+    return Response.success(data, nextPage)
 }

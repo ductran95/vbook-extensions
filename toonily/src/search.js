@@ -1,10 +1,13 @@
 function execute(key, page) {
     if (!page) page = '1';
-    const url = 'https://toonily.com' + '/page/' + page;
-    const doc = Http.get(url).params({
-        s: key,
-        post_type: 'wp-manga'
-    }).html()
+    var newUrl = url + '/page/' + page + '?s=' + key + '&post_type=wp-manga';
+
+    // Bypass cloudflare
+    var browser = Engine.newBrowser();
+    browser.launch(newUrl, 15*1000);
+    var doc = browser.html();
+
+    browser.close();
 
     var next = doc.select("div.wp-pagenavi").select("span.current + a").text()
 

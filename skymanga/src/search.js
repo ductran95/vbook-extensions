@@ -1,5 +1,5 @@
 function execute(key, page) {
-    if (!page) page = 1;
+    if (!page) page = '1';
     const url = 'https://skymanga.co' + '/page/' + page;
     const doc = Http.get(url).params({
         s: key,
@@ -7,6 +7,7 @@ function execute(key, page) {
     }).html()
 
     var next = doc.select(".nav-previous").size() > 0;
+    var nextPage = next ? (Number(page) + 1).toString() : page;
 
     const el = doc.select("div.content-area div.c-tabs-item div.c-tabs-item__content")
 
@@ -22,5 +23,5 @@ function execute(key, page) {
         })
     }
 
-    return Response.success(data, next ? page + 1 : page)
+    return Response.success(data, nextPage)
 }

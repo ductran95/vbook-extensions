@@ -1,5 +1,10 @@
 function execute(url) {
-    const doc = Http.get(url).html()
+    // Bypass cloudflare
+    var browser = Engine.newBrowser();
+    browser.launch(url, 15*1000);
+    var doc = browser.html();
+
+    browser.close();
 
     return Response.success({
         name: doc.select("div.profile-manga div.post-title > h1").text(),

@@ -1,5 +1,11 @@
 function execute(url) {
-    var doc = Http.get(url).html();
+    // Bypass cloudflare
+    var browser = Engine.newBrowser();
+    browser.launch(url, 15*1000);
+    var doc = browser.html();
+
+    browser.close();
+    
     var el = doc.select("div.reading-content img");
 
     var data = [];

@@ -2,9 +2,9 @@
   "metadata": {
     "name": "Toonily",
     "author": "purple_sunset",
-    "version": 4,
+    "version": 5,
     "source": "https://toonily.com/",
-    "regexp": "(www.)?toonily.com/[^/]+/?",
+    "regexp": "(www.)?toonily.com.*",
     "description": "Read English Korean Manhwa and webtoons Online For Free at Toonily",
     "local": "vi-VN",
     "language": "javascript",
