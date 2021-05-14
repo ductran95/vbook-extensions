@@ -2,7 +2,7 @@
   "metadata": {
     "name": "Skymanga2",
     "author": "purple_sunset",
-    "version": 1,
+    "version": 2,
     "source": "https://skymanga.co/",
     "regexp": "(www.)?skymanga.co/[^/]+/?",
     "description": "Skymanga the best website and the fastest for manga and webtoon",
