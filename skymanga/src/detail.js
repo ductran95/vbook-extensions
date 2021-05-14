@@ -3,7 +3,7 @@ function execute(url) {
 
     return Response.success({
         name: doc.select(".post-title > h1").text(),
-        cover: doc.select(".summary_image a > img").attr("data-src").replace('\t','').replace('\n',''),
+        cover: doc.select(".summary_image a > img").attr("data-src").trim(),
         author: doc.select(".post-content_item:contains(Author) div.summary-content").text(),
         description: doc.select(".summary__content.active").text(),
         detail: doc.select(".post-content div.post-content_item").html(),

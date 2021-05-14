@@ -35,10 +35,10 @@
       "tag": "nsfw"
     },
     {
-      "name": "Skymanga",
+      "name": "Skymanga2",
       "author": "purple_sunset",
       "path": "https://raw.githubusercontent.com/purple-sunset/vbook-extensions/develop/skymanga/plugin.zip",
-      "version": 15,
+      "version": 1,
       "source": "https://skymanga.co/",
       "icon": "https://raw.githubusercontent.com/purple-sunset/vbook-extensions/develop/skymanga/icon.png",
       "description": "Skymanga the best website and the fastest for manga and webtoon",
