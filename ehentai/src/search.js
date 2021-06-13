@@ -1,6 +1,6 @@
 function execute(key, page) {
-    if (!page) page = '1';
-    const url = 'https://e-hentai.org/?f_search=' + key + '&page' + page;
+    if (!page) page = '0';
+    const url = 'https://e-hentai.org/?f_search=' + key + '&page=' + page;
     
     const doc = Http.get(url).html();
 
