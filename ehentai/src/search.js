@@ -2,12 +2,12 @@ function execute(key, page) {
     if (!page) page = '1';
     const url = 'https://e-hentai.org/?f_search=' + key + '&page' + page;
     
-    const doc = Http.get(nextUrl).html();
+    const doc = Http.get(url).html();
 
     var next = "";
     var nextPage = doc.select(".ptt td.ptds + td a").text();
     if(nextPage){
-        var nextNumber = Number(next);
+        var nextNumber = Number(nextPage);
         next = (nextNumber - 1).toString();
     }
 
@@ -28,5 +28,5 @@ function execute(key, page) {
         })
     }
 
-    return Response.success(data, nextPage)
+    return Response.success(data, next)
 }

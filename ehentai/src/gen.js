@@ -21,7 +21,7 @@ function execute(url, page) {
     var next = "";
     var nextPage = doc.select(".ptt td.ptds + td a").text();
     if(nextPage){
-        var nextNumber = Number(next);
+        var nextNumber = Number(nextPage);
         next = (nextNumber - 1).toString();
     }
 

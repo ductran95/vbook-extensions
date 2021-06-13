@@ -1,7 +1,7 @@
 function execute(url) {
     var doc = Http.get(url).html();
 
-    var el = chapDoc.select(".ptt td");
+    var el = doc.select(".ptt td");
 
     const data = [];
 
