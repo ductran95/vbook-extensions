@@ -5,7 +5,7 @@ function execute(url) {
 
     const data = [];
 
-    var pageEl = el[el.length - 2];
+    var pageEl = el[el.size() - 2];
     var pageNumber = Number(pageEl.text());
 
     for (var i = 1; i <= pageNumber; i++) {
