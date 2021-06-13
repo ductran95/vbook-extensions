@@ -43,6 +43,16 @@
       "icon": "https://raw.githubusercontent.com/purple-sunset/vbook-extensions/develop/skymanga/icon.png",
       "description": "Skymanga the best website and the fastest for manga and webtoon",
       "tag": "nsfw"
+    },
+    {
+      "name": "EHentai",
+      "author": "purple_sunset",
+      "path": "https://raw.githubusercontent.com/purple-sunset/vbook-extensions/develop/ehentai/plugin.zip",
+      "version": 1,
+      "source": "https://e-hentai.org/",
+      "icon": "https://raw.githubusercontent.com/purple-sunset/vbook-extensions/develop/ehentai/icon.png",
+      "description": "E-Hentai Galleries: The Free Hentai Doujinshi, Manga and Image Gallery System",
+      "tag": "nsfw"
     }
   ]
 }
