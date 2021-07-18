@@ -2,6 +2,8 @@ function execute(url) {
     var doc = Http.get(url + "/chaps").html();
     const pageList = [];
 
+    pageList.push(url + "/chaps")
+
     if (doc) {
         var lastPage = doc.select(".pagi a").last().attr("href");
 
