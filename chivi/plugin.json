@@ -1,7 +1,7 @@
 {
   "metadata": {
     "name": "Chivi",
-    "author": "vBook",
+    "author": "purple_sunset",
     "version": 1,
     "source": "https://chivi.xyz",
     "regexp": "(www.)?chivi.xyz/[^/+]+/?$",
