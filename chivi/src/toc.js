@@ -23,12 +23,14 @@ function execute(url) {
             }
 
             var nextEl = chList.select(".pagi ._primary + a")
+            if(nextEl.size() == 0 || nextEl.hasClass("_disable") || nextEl.attr("href") == tocUrl){
+                break
+            }
             tocUrl = nextEl.attr("href")
         }
         else {
             break
         }
-
     }
 
     return Response.success(chapList);
