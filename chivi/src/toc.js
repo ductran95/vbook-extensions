@@ -4,7 +4,25 @@ function execute(url) {
 
     var doc = Http.get(tocUrl).html()
 
+    chapList.push({
+        "name": "tocUrl: " + tocUrl,
+        "url": tocUrl,
+        "host": "https://chivi.xyz"
+    });
+
+    chapList.push({
+        "name": "doc: " + doc.body().text().substring(0, 50),
+        "url": tocUrl,
+        "host": "https://chivi.xyz"
+    });
+
     if (doc) {
+        chapList.push({
+            "name": doc.select(".title > h1").text(),
+            "url": tocUrl,
+            "host": "https://chivi.xyz"
+        });
+
         var chList = doc.select(".chlist")
 
         chapList.push({
