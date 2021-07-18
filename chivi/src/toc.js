@@ -1,6 +1,12 @@
 function execute(url) {
     var doc = Http.get(url).html();
 
+    chapList.push({
+        "name": "url: " + url,
+        "url": url,
+        "host": "https://chivi.xyz"
+    });
+
     if (doc) {
         const chapList = [];
         var el = doc.select(".chlist").last().select(".list > li > a")
@@ -11,7 +17,6 @@ function execute(url) {
                 "name": e.select(".title").text(),
                 "url": e.attr("href"),
                 "host": "https://chivi.xyz"
-
             });
         }
         return Response.success(chapList);
