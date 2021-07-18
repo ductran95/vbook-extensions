@@ -1,13 +1,13 @@
 function execute(url) {
-    var page = 1
-    var tocPrefixUrl = url + "/chaps/"
+    var tocUrl = url + "/chaps"
     const chapList = [];
 
     while(true){
-        var doc = Http.get(tocPrefixUrl + page).html()
+        var doc = Http.get(tocUrl).html()
 
         if (doc) {
-            var el = doc.select(".chlist").last().select(".list > li > a")
+            var chList = doc.select(".chlist").last();
+            var el = chList.select(".list > li > a")
 
             if(el.size() == 0){
                 break
@@ -21,12 +21,14 @@ function execute(url) {
                     "host": "https://chivi.xyz"
                 });
             }
+
+            var nextEl = chList.select(".pagi ._primary + a")
+            tocUrl = nextEl.attr("href")
         }
         else {
             break
         }
 
-        page++
     }
 
     return Response.success(chapList);
