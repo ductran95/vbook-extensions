@@ -9,9 +9,9 @@ function execute(url) {
 
         if(slashIndex > -1) {
             var prefixUrl = lastPage.substring(0, slashIndex);
-            var lastPage = Number(lastPage.substring(slashIndex+1))
+            var lastPageNo = Number(lastPage.substring(slashIndex+1));
 
-            for (var i = 1; i <= lastPage; i++) {
+            for (var i = 1; i <= lastPageNo; i++) {
                 pageList.push(prefixUrl + "/" + i);
             }
         }
