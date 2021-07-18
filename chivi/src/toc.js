@@ -5,7 +5,7 @@ function execute(url) {
     var doc = Http.get(tocUrl).html()
 
     if (doc) {
-        var chList = doc.select(".chlist._page")
+        var chList = doc.select(".chlist")
 
         chapList.push({
             "name": "chList count: " + chList.size(),
