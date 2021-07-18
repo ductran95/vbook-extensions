@@ -6,6 +6,13 @@ function execute(url) {
 
     if (doc) {
         var chList = doc.select(".chlist._page")
+
+        chapList.push({
+            "name": "chList count: " + chList.size(),
+            "url": tocUrl,
+            "host": "https://chivi.xyz"
+        });
+
         var el = chList.select(".list .link")
 
         chapList.push({
