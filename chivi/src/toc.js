@@ -4,26 +4,26 @@ function execute(url) {
 
     var doc = Http.get(tocUrl).html()
 
-    chapList.push({
-        "name": doc ? "ok" : "error",
-        "url": tocUrl,
-        "host": "https://chivi.xyz"
-    });
+    if (doc) {
+        var chList = doc.select(".chlist").last()
+        var el = chList.select(".list > li > a")
 
-    // if (doc != null) {
-    //     var chList = doc.select(".chlist").last()
-    //     var el = chList.select(".list > li > a")
+        chapList.push({
+            "name": "a count: " + el.size(),
+            "url": tocUrl,
+            "host": "https://chivi.xyz"
+        });
 
-    //     for (var i = 0; i < el.size(); i++) {
-    //         var e = el.get(i);
-    //         chapList.push({
-    //             "name": e.select(".title").text(),
-    //             "url": e.attr("href"),
-    //             "host": "https://chivi.xyz"
-    //         });
-    //     }
+        // for (var i = 0; i < el.size(); i++) {
+        //     var e = el.get(i);
+        //     chapList.push({
+        //         "name": e.select(".title").text(),
+        //         "url": e.attr("href"),
+        //         "host": "https://chivi.xyz"
+        //     });
+        // }
 
-    // }
+    }
 
     // while(true){
     //     var doc = Http.get(tocUrl).html()
