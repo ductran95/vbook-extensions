@@ -1,85 +1,21 @@
 function execute(url) {
-    var tocUrl = url + "/chaps"
-    const chapList = []
-
-    var doc = Http.get(tocUrl).html()
-
-    chapList.push({
-        "name": "tocUrl: " + tocUrl,
-        "url": tocUrl,
-        "host": "https://chivi.xyz"
-    });
-
-    chapList.push({
-        "name": "doc: " + doc.body().text().substring(0, 50),
-        "url": tocUrl,
-        "host": "https://chivi.xyz"
-    });
+    var doc = Http.get(url).html();
 
     if (doc) {
-        chapList.push({
-            "name": doc.select(".title > h1").text(),
-            "url": tocUrl,
-            "host": "https://chivi.xyz"
-        });
+        const chapList = [];
+        var el = doc.select(".chlist").last().select(".list > li > a")
 
-        var chList = doc.select(".chlist")
+        for (var i = 0; i < el.size(); i++) {
+            var e = el.get(i);
+            chapList.push({
+                "name": e.select(".title").text(),
+                "url": e.attr("href"),
+                "host": "https://chivi.xyz"
 
-        chapList.push({
-            "name": "chList count: " + chList.size(),
-            "url": tocUrl,
-            "host": "https://chivi.xyz"
-        });
-
-        var el = chList.select(".list .link")
-
-        chapList.push({
-            "name": "a count: " + el.size(),
-            "url": tocUrl,
-            "host": "https://chivi.xyz"
-        });
-
-        // for (var i = 0; i < el.size(); i++) {
-        //     var e = el.get(i);
-        //     chapList.push({
-        //         "name": e.select(".title").text(),
-        //         "url": e.attr("href"),
-        //         "host": "https://chivi.xyz"
-        //     });
-        // }
-
+            });
+        }
+        return Response.success(chapList);
     }
 
-    // while(true){
-    //     var doc = Http.get(tocUrl).html()
-
-    //     if (doc) {
-    //         var chList = doc.select(".chlist").last();
-    //         var el = chList.select(".list > li > a")
-
-    //         if(el.size() == 0){
-    //             break
-    //         }
-    
-    //         for (var i = 0; i < el.size(); i++) {
-    //             var e = el.get(i);
-    //             chapList.push({
-    //                 "name": e.select(".title").text(),
-    //                 "url": e.attr("href"),
-    //                 "host": "https://chivi.xyz"
-    //             });
-    //         }
-
-    //         var nextEl = chList.select(".pagi ._primary + a")
-    //         if(nextEl.size() == 0 || nextEl.hasClass("_disable") || nextEl.attr("href") == tocUrl){
-    //             break
-    //         }
-    //         tocUrl = nextEl.attr("href")
-    //     }
-    //     else {
-    //         break
-    //     }
-    // }
-
-    return Response.success(chapList);
+    return null;
 }

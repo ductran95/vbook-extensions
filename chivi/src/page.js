@@ -1,19 +1,22 @@
 function execute(url) {
-    var doc = Http.get(url + "/content").html();
+    var doc = Http.get(url + "/chaps").html();
     const pageList = [];
+
     if (doc) {
         var lastPage = doc.select(".pagi a").last().attr("href");
-        const lastPageRegex = /.*page=(\d+)/g;
-        const result = lastPageRegex.exec(lastPage);
 
-        if (result) {
-            lastPage = result[1];
-        } else {
-            lastPage = 1;
+        var slashIndex = lastPage.lastIndexOf("/");
+
+        if(slashIndex > -1) {
+            var prefixUrl = lastPage.substring(0, slashIndex);
+            var lastPage = Number(lastPage.substring(slashIndex+1))
+
+            for (var i = 1; i <= lastPage; i++) {
+                pageList.push(prefixUrl + "/" + i);
+            }
         }
-
-        for (var i = 1; i <= lastPage; i++) {
-            pageList.push(url + "/content?page=" + i);
+        else {
+            pageList.push(lastPage)
         }
     }
 
