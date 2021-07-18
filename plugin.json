@@ -5,6 +5,15 @@
   },
   "data": [
     {
+      "name": "Chivi",
+      "author": "vBook",
+      "path": "https://raw.githubusercontent.com/purple-sunset/vbook-extensions/develop/chivi/plugin.zip",
+      "version": 1,
+      "source": "https://chivi.xyz",
+      "icon": "https://raw.githubusercontent.com/purple-sunset/vbook-extensions/develop/chivi/icon.png",
+      "description": "Đọc truyện trên trang Chivi"
+    },
+    {
       "name": "Hentai2Read",
       "author": "purple_sunset",
       "path": "https://raw.githubusercontent.com/purple-sunset/vbook-extensions/develop/hentai2read/plugin.zip",
