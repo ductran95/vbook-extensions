@@ -19,8 +19,7 @@ function execute(url) {
                 "host": "https://chivi.xyz"
             });
         }
-        return Response.success(chapList);
     }
 
-    return null;
+    return Response.success(chapList);
 }
