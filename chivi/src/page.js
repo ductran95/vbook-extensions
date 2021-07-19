@@ -1,28 +1,25 @@
 function execute(url) {
-    // var doc = Http.get(url + "/chaps").html();
+    var doc = Http.get(url + "/chaps").html();
     const pageList = [];
 
-    pageList.push(url + "/chaps")
+    if (doc) {
+        var pages = doc.select(".pagi a");
+        var firstPage = pages.first().attr("href");
+        var lastPage = pages.last().attr("href");
 
-    // if (doc) {
-        // var lastPage = doc.select(".pagi a").last().attr("href");
+        if(firstPage == lastPage) {
+            pageList.push(firstPage)
+        }
+        else {
+            var slashIndex = lastPage.lastIndexOf("/");
+            var prefixUrl = lastPage.substring(0, slashIndex);
+            var lastPageNo = parseInt(lastPage.substring(slashIndex+1));
 
-        // var slashIndex = lastPage.lastIndexOf("/");
-
-        // if(slashIndex > -1) {
-        //     var prefixUrl = lastPage.substring(0, slashIndex);
-        //     var lastPageNo = Number(lastPage.substring(slashIndex+1));
-
-        //     for (var i = 1; i <= lastPageNo; i++) {
-        //         pageList.push(prefixUrl + "/" + i);
-        //     }
-        // }
-        // else {
-        //     pageList.push(lastPage)
-        // }
-
-        // pageList.push(lastPage)
-    // }
+            for (var i = 1; i <= lastPageNo; i++) {
+                pageList.push(prefixUrl + "/" + i);
+            }
+        }
+    }
 
     return Response.success(pageList);
 }
