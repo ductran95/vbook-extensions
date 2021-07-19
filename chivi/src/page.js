@@ -8,11 +8,11 @@ function execute(url) {
         var lastPage = pages.last().attr("href");
 
         if(firstPage == lastPage) {
-            pageList.push(firstPage)
+            pageList.push("https://chivi.xyz" + firstPage)
         }
         else {
             var slashIndex = lastPage.lastIndexOf("/");
-            var prefixUrl = lastPage.substring(0, slashIndex);
+            var prefixUrl = "https://chivi.xyz" + lastPage.substring(0, slashIndex);
             var lastPageNo = parseInt(lastPage.substring(slashIndex+1));
 
             for (var i = 1; i <= lastPageNo; i++) {
