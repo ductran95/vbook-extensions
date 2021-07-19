@@ -1,5 +1,17 @@
 function execute(url) {
-    var doc = Http.get(url + "/chaps").html();
+    var bookApiUrl = url.replace("/~", "/api/books/");
+    var bookJson = Http.get(bookApiUrl).string();
+    var book = JSON.parse(bookJson);
+
+    var src = "";
+
+    Object.keys(book.chseed).forEach(function(key) {
+        if(book.chseed[key][1] == book.update) {
+            src = key
+        }
+    })
+
+    var doc = Http.get(url + "/chaps/" + src).html();
     const pageList = [];
 
     if (doc) {
