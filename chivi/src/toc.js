@@ -1,5 +1,5 @@
 function execute(url) {
-    var doc = Http.get(url).html();
+    var doc = Http.get("https://chivi.xyz" + url).html();
 
     const chapList = [];
 
