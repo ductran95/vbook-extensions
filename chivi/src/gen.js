@@ -5,7 +5,7 @@ function execute(url, page) {
         page = parseInt(page)
     }
 
-    var json = Http.get(url + "?skip=" + page + "&take=24").string();
+    var json = Http.get(url + "&skip=" + page + "&take=24").string();
 
     var data = JSON.parse(json);
     var next = "";
