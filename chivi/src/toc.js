@@ -1,10 +1,12 @@
 function execute(url) {
-    var doc = Http.get(url).html();
+    // var doc = Http.get(url).html();
+
+    const chapList = [];
 
     chapList.push({
-        "name": "url: " + url,
-        "url": url,
-        "host": "https://chivi.xyz"
+        name: "url: " + url,
+        url: url,
+        host: "https://chivi.xyz"
     });
 
     // if (doc) {
