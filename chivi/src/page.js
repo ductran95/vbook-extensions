@@ -4,8 +4,8 @@ function execute(url) {
 
     pageList.push(url + "/chaps")
 
-    if (doc) {
-        var lastPage = doc.select(".pagi a").last().attr("href");
+    // if (doc) {
+        // var lastPage = doc.select(".pagi a").last().attr("href");
 
         // var slashIndex = lastPage.lastIndexOf("/");
 
@@ -21,8 +21,8 @@ function execute(url) {
         //     pageList.push(lastPage)
         // }
 
-        pageList.push(lastPage)
-    }
+        // pageList.push(lastPage)
+    // }
 
     return Response.success(pageList);
 }
