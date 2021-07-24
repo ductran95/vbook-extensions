@@ -1,21 +1,19 @@
 function execute(url, page) {
     if (!page) {
         page = 0;
-    } else {
-        page = parseInt(page)
     }
 
-    var json = Http.get(url + "&skip=" + page + "&take=24").string();
+    var json = Http.get(url + "&page=" + page + "&take=24").string();
 
     var data = JSON.parse(json);
-    var next = "";
+    var next = 0;
 
     var novelList = [];
 
     if (data.books) {
         var total = data.total;
         if (page < total) {
-            next = page + 24;
+            next = page;
         }
         novelList = data.books.map(item => {
             return {

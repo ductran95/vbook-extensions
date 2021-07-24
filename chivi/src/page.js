@@ -1,35 +1,22 @@
 function execute(url) {
-    var bookApiUrl = url.replace("/~", "/api/books/");
-    var bookJson = Http.get(bookApiUrl).string();
-    var book = JSON.parse(bookJson);
-
-    var src = "";
-
-    Object.keys(book.chseed).forEach(function(key) {
-        if(book.chseed[key][1] == book.update) {
-            src = key
-        }
-    })
-
-    var doc = Http.get(url + "/chaps/" + src).html();
+    var chapUrl = "https://chivi.xyz" + url + "/chaps";
+    var doc = Http.get(chapUrl).html();
     const pageList = [];
 
     if (doc) {
-        var pages = doc.select(".pagi a");
-        var firstPage = pages.first().attr("href");
+        var pages = doc.select(".pagi a._line");
         var lastPage = pages.last().attr("href");
 
-        if(firstPage == lastPage) {
-            pageList.push("https://chivi.xyz" + firstPage)
+        const pageRegex = /.*page=(.*)/g;
+        const result = pageRegex.exec(lastPage);
+        if (result) {
+            var lastPageNo = parseInt(result[1]);
+            for (var i = 1; i <= lastPageNo; i++) {
+                pageList.push(chapUrl + "?page=" + i);
+            }
         }
         else {
-            var slashIndex = lastPage.lastIndexOf("/");
-            var prefixUrl = "https://chivi.xyz" + lastPage.substring(0, slashIndex);
-            var lastPageNo = parseInt(lastPage.substring(slashIndex+1));
-
-            for (var i = 1; i <= lastPageNo; i++) {
-                pageList.push(prefixUrl + "/" + i);
-            }
+            pageList.push(chapUrl)
         }
     }
 

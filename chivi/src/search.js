@@ -6,8 +6,8 @@ function execute(key, page) {
 
     var doc = Http.get("https://chivi.xyz/search?q=" + key + "&p=" + page).html();
 
-    const novelList = [];
     var next = "";
+    const novelList = [];
 
     if (doc) {
         var el = doc.select(".list .book")
@@ -23,7 +23,7 @@ function execute(key, page) {
             var e = el.get(i);
             novelList.push({
                 "name": e.select(".infos  ._title").text(),
-                "link": e.select("a").first().attr("href"),
+                "link": e.attr("href"),
                 "description": e.select(".infos  ._author").text(),
                 "cover": e.select(".cover img").first().attr("src"),
                 "host": "https://chivi.xyz"
