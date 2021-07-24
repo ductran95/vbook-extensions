@@ -13,12 +13,12 @@ function execute(url, page) {
     if (data.books) {
         var total = data.total;
         if (page < total) {
-            next = page;
+            next = page + 1;
         }
         novelList = data.books.map(item => {
             return {
                 "name": item.btitle_vi,
-                "link": "~" + item.bslug,
+                "link": "https://chivi.xyz/~" + item.bslug,
                 "description": item.author_vi,
                 "cover": item.bcover ? "/covers/" + item.bcover : "",
                 "host": "https://chivi.xyz"

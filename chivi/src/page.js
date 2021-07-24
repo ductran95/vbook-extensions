@@ -1,5 +1,5 @@
 function execute(url) {
-    var chapUrl = "https://chivi.xyz" + url + "/chaps";
+    var chapUrl = url + "/chaps";
     var doc = Http.get(chapUrl).html();
     const pageList = [];
 
