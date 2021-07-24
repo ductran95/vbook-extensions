@@ -4,6 +4,8 @@ function execute(url) {
     const pageList = [];
 
     if (doc) {
+        var source = doc.select(".source ._active").text().toLowerCase()
+
         var pages = doc.select(".pagi a._line");
         var lastPage = pages.last().attr("href");
 
@@ -12,7 +14,7 @@ function execute(url) {
         if (result) {
             var lastPageNo = parseInt(result[1]);
             for (var i = 1; i <= lastPageNo; i++) {
-                pageList.push(chapUrl + "?page=" + i);
+                pageList.push(chapUrl + "/" + source + "?page=" + i);
             }
         }
         else {

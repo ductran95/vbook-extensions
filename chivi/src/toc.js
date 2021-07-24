@@ -3,6 +3,8 @@ function execute(url) {
 
     const chapList = [];
 
+    var source = "";
+
     chapList.push({
         name: url,
         url: url,
