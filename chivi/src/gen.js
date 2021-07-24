@@ -1,12 +1,12 @@
 function execute(url, page) {
     if (!page) {
-        page = 0;
+        page = 1;
     }
 
     var json = Http.get(url + "&page=" + page + "&take=24").string();
 
     var data = JSON.parse(json);
-    var next = 0;
+    var next = page;
 
     var novelList = [];
 

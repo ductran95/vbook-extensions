@@ -7,7 +7,7 @@ function execute(url) {
         var pages = doc.select(".pagi a._line");
         var lastPage = pages.last().attr("href");
 
-        const pageRegex = /.*page=(.*)/g;
+        const pageRegex = /.*page=(\d+)/g;
         const result = pageRegex.exec(lastPage);
         if (result) {
             var lastPageNo = parseInt(result[1]);
