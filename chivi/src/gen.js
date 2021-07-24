@@ -3,12 +3,22 @@ function execute(url, page) {
         page = 1;
     }
 
-    var json = Http.get(url + "&page=" + page + "&take=24").string();
+    var newUrl = url + "&page=" + page + "&take=24"
+
+    var json = Http.get(newUrl).string();
 
     var data = JSON.parse(json);
     var next = page;
 
     var novelList = [];
+
+    novelList.push({
+        "name": newUrl,
+        "link": newUrl,
+        "description": "page: " + page + "total: " + data.total,
+        "cover": "",
+        "host": "https://chivi.xyz"
+    })
 
     if (data.books) {
         var total = data.total;
@@ -18,7 +28,7 @@ function execute(url, page) {
         novelList = data.books.map(item => {
             return {
                 "name": item.btitle_vi,
-                "link": "~" + item.bslug,
+                "link": "https://chivi.xyz/~" + item.bslug,
                 "description": item.author_vi,
                 "cover": item.bcover ? "/covers/" + item.bcover : "",
                 "host": "https://chivi.xyz"
