@@ -10,8 +10,8 @@ function execute(url) {
   if (data && data.chaps) {
     chapList = data.chaps.map((item) => {
       return {
-        name: "/~" + urlData.book + "/~" + item.uslug,
-        url: "/~" + urlData.book + "/~" + item.uslug,
+        name: item.title,
+        url: "/-" + urlData.book + "/-" + item.uslug + "-" + data.sname + "-" + item.chidx,
         host: "https://chivi.xyz",
       };
     });
