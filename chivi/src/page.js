@@ -1,21 +1,34 @@
 function execute(url) {
-    var chapUrl = url + "/chaps";
-    var doc = Http.get(chapUrl).html();
+    var json = Http.get(url).string();
+
+    var data = JSON.parse(json);
+
     const pageList = [];
 
-    if (doc) {
-        var source = doc.select(".source ._active").text().toLowerCase()
-        pageList.push(chapUrl + "/" + source)
+    if (data) {
+        var source = "";
 
-        var pages = doc.select(".pagi a._line");
-        var lastPage = pages.last().attr("href");
+        data.snames.every(sn => {
+            if(sn != "chivi"){
+                source = sn;
+                return false;
+            }
+            return true;
+        });
 
-        const pageRegex = /.*page=(\d+)/g;
-        const result = pageRegex.exec(lastPage);
-        if (result) {
-            var lastPageNo = parseInt(result[1]);
-            for (var i = 2; i <= lastPageNo; i++) {
-                pageList.push(chapUrl + "/" + source + "?page=" + i);
+        var chapUrl = "/api/chaps/" + data.id + "/" + source + "?mode=0" + "&page=";
+
+        var chapJson = Http.get(chapUrl + "1").string();
+        var chapData = JSON.parse(chapJson);
+
+        if(chapData) {
+            for (var i = 1; i <= chapData.pgmax; i++) {
+                var pageObj = {
+                    book: data.bslug,
+                    url: chapUrl + i
+                };
+
+                pageList.push(JSON.stringify(pageObj));
             }
         }
     }

@@ -15,15 +15,15 @@ function execute(url, page) {
 
     var novelList = [];
 
-    if (data.books) {
-        var total = data.total;
-        if (page < total) {
+    if (data && data.books) {
+        if (page < data.pgmax) {
             next = page + 1;
         }
+        
         novelList = data.books.map(item => {
             return {
                 "name": item.btitle_vi,
-                "link": "/~" + item.bslug,
+                "link": "/api/books/" + item.bslug,
                 "description": item.author_vi,
                 "cover": item.bcover ? "/covers/" + item.bcover : "",
                 "host": "https://chivi.xyz"

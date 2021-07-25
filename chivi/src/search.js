@@ -1,34 +1,37 @@
 function execute(key, page) {
-
     if (!page) {
-        page = "1";
+        page = 1;
+    }
+    else {
+        page = parseInt(page);
     }
 
-    var doc = Http.get("https://chivi.xyz/search?q=" + key + "&p=" + page).html();
+    var json = Http.get("https://chivi.xyz/api/books").params({
+        page: page,
+        btitle: key,
+        listType: 'weight',
+        take: '8',
+    }).string();
 
-    var next = "";
-    const novelList = [];
+    var data = JSON.parse(json);
+    var next = page;
 
-    if (doc) {
-        var el = doc.select(".list .book")
-        var nextPage = doc.select(".pagi a._primary").attr("href");
+    var novelList = [];
 
-        const pageRegex = /.*p=(\d+)/g;
-        const result = pageRegex.exec(nextPage);
-        if (result) {
-            next = result[1];
+    if (data && data.books) {
+        if (page < data.pgmax) {
+            next = page + 1;
         }
-
-        for (var i = 0; i < el.size(); i++) {
-            var e = el.get(i);
-            novelList.push({
-                "name": e.select(".infos  ._title").text(),
-                "link": e.attr("href"),
-                "description": e.select(".infos  ._author").text(),
-                "cover": e.select(".cover img").first().attr("src"),
+        
+        novelList = data.books.map(item => {
+            return {
+                "name": item.btitle_vi,
+                "link": "/api/books/" + item.bslug,
+                "description": item.author_vi,
+                "cover": item.bcover ? "/covers/" + item.bcover : "",
                 "host": "https://chivi.xyz"
-            });
-        }
+            }
+        });
     }
 
     return Response.success(novelList, next);

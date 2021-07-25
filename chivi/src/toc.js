@@ -1,25 +1,20 @@
 function execute(url) {
-    var doc = Http.get(url).html();
+    var urlData = JSON.parse(url);
+
+    var json = Http.get(urlData.url).string();
+
+    var data = JSON.parse(json);
 
     const chapList = [];
 
-    chapList.push({
-        name: url,
-        url: url,
-        host: "https://chivi.xyz"
-    });
-
-    if (doc) {
-        var el = doc.select(".chlist").select(".list").last().select("li > a")
-
-        for (var i = 0; i < el.size(); i++) {
-            var e = el.get(i);
-            chapList.push({
-                name: e.select(".title").text(),
-                url: e.attr("href"),
+    if (data && data.chaps) {
+        novelList = data.chaps.map(item => {
+            return {
+                name: item.title,
+                url: "/~" + urlData.book + "/~" + item.uslug,
                 host: "https://chivi.xyz"
-            });
-        }
+            }
+        });
     }
 
     return Response.success(chapList);

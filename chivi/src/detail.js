@@ -1,14 +1,17 @@
 function execute(url) {
-    var doc = Http.get(url).html();
-    if (doc != null) {
+    var json = Http.get(url).string();
+
+    var data = JSON.parse(json);
+
+    if (data) {
         return Response.success({
-            "name": doc.select(".title > h1").text(),
-            "cover": doc.select(".cover img").first().attr("src"),
+            "name": data.btitle_vi,
+            "cover": data.bcover ? "/covers/" + data.bcover : "",
+            "author": data.author_vi,
+            "description": doc.bintro.join("\n"),
+            "detail": data.author_vi + "\n" + data.genres.join("\n") + (data.status == 0 ? "Còn tiếp" : "Hoàn thành") + "\n" + new Date(data.update).toLocaleString(),
+            "ongoing": data.status == 0,
             "host": "https://chivi.xyz",
-            "author": doc.select("[property=og:novel:author]").attr("content"),
-            "description": doc.select(".section-content").html(),
-            "detail": doc.select(".extra").first().html(),
-            "ongoing": doc.select(".extra").first().html().indexOf("Còn tiếp") >= 0
         });
     }
 
