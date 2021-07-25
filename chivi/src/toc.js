@@ -7,6 +7,12 @@ function execute(url) {
 
   const chapList = [];
 
+  chapList.push({
+    name: urlData.book + "  " + urlData.url,
+    url: urlData.url,
+    host: "https://chivi.xyz",
+  });
+
   if (data && data.chaps) {
     novelList = data.chaps.map((item) => {
       return {
