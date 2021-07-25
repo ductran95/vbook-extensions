@@ -7,7 +7,7 @@ function execute(key, page) {
     }
 
     var json = Http.get("https://chivi.xyz/api/books").params({
-        page: page,
+        page: page.toString(),
         btitle: key,
         listType: 'weight',
         take: '24',
@@ -25,14 +25,22 @@ function execute(key, page) {
         
         novelList = data.books.map(item => {
             return {
-                "name": item.btitle_vi,
-                "link": "/api/books/" + item.bslug,
-                "description": item.author_vi,
-                "cover": item.bcover ? "/covers/" + item.bcover : "",
-                "host": "https://chivi.xyz"
+                name: item.btitle_vi,
+                link: "/api/books/" + item.bslug,
+                description: item.author_vi,
+                cover: item.bcover ? "/covers/" + item.bcover : "",
+                host: "https://chivi.xyz"
             }
         });
     }
+
+    novelList.push({
+        name: "key: " + key + "page: " + page + "next: " + next,
+        link: "",
+        description: "",
+        cover: "",
+        host: "https://chivi.xyz"
+    })
 
     return Response.success(novelList, next);
 }

@@ -25,7 +25,7 @@ function execute(url) {
             for (var i = 1; i <= chapData.pgmax; i++) {
                 var pageObj = {
                     book: data.bslug,
-                    url: chapUrl + i
+                    url: chapUrl + i.toString()
                 };
 
                 pageList.push(JSON.stringify(pageObj));

@@ -22,11 +22,11 @@ function execute(url, page) {
         
         novelList = data.books.map(item => {
             return {
-                "name": item.btitle_vi,
-                "link": "/api/books/" + item.bslug,
-                "description": item.author_vi,
-                "cover": item.bcover ? "/covers/" + item.bcover : "",
-                "host": "https://chivi.xyz"
+                name: item.btitle_vi,
+                link: "/api/books/" + item.bslug,
+                description: item.author_vi,
+                cover: item.bcover ? "/covers/" + item.bcover : "",
+                host: "https://chivi.xyz"
             }
         });
     }
