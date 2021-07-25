@@ -34,13 +34,5 @@ function execute(key, page) {
         });
     }
 
-    novelList.push({
-        name: "key: " + key + "page: " + page + "next: " + next,
-        link: "",
-        description: "",
-        cover: "",
-        host: "https://chivi.xyz"
-    })
-
     return Response.success(novelList, next);
 }

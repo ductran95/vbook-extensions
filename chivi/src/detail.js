@@ -9,7 +9,7 @@ function execute(url) {
             "cover": data.bcover ? "/covers/" + data.bcover : "",
             "author": data.author_vi,
             "description": data.bintro.join("\n"),
-            "detail": data.author_vi + "\n" + data.genres.join("\n") + (data.status == 0 ? "Còn tiếp" : "Hoàn thành") + "\n" + new Date(data.update).toLocaleString(),
+            "detail": data.author_vi + "\n" + data.genres.join("\n") + (data.status == 0 ? "Còn tiếp" : "Hoàn thành") + "\n" + (new Date(data.update * 1000)).toLocaleString(),
             "ongoing": data.status == 0,
             "host": "https://chivi.xyz",
         });

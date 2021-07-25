@@ -8,27 +8,25 @@ function execute(url) {
     if (data) {
         var source = "";
 
-        data.snames.every(sn => {
-            if(sn != "chivi"){
-                source = sn;
-                return false;
-            }
-            return true;
-        });
+        for (var si = 0; si < data.snames.length; si++) {
+            source = data.snames[si];
 
-        var chapUrl = "/api/chaps/" + data.id + "/" + source + "?mode=0" + "&page=";
+            var chapUrl = "https://chivi.xyz/api/chaps/" + data.id + "/" + source + "?mode=0" + "&page=";
 
-        var chapJson = Http.get(chapUrl + "1").string();
-        var chapData = JSON.parse(chapJson);
+            var chapJson = Http.get(chapUrl + "1").string();
+            var chapData = JSON.parse(chapJson);
+    
+            if(chapData && chapData.total) {
+                for (var i = 1; i <= chapData.pgmax; i++) {
+                    var pageObj = {
+                        book: data.bslug,
+                        url: chapUrl + i.toString()
+                    };
+    
+                    pageList.push(JSON.stringify(pageObj));
+                }
 
-        if(chapData) {
-            for (var i = 1; i <= chapData.pgmax; i++) {
-                var pageObj = {
-                    book: data.bslug,
-                    url: chapUrl + i.toString()
-                };
-
-                pageList.push(JSON.stringify(pageObj));
+                break;
             }
         }
     }
