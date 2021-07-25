@@ -5,7 +5,7 @@ function execute(url) {
 
   var data = JSON.parse(json);
 
-  const chapList = [];
+  var chapList = [];
 
   if (data && data.chaps) {
     chapList = data.chaps.map((item) => {

@@ -3,7 +3,7 @@ function execute(url) {
 
     var data = JSON.parse(json);
 
-    const pageList = [];
+    var pageList = [];
 
     if (data) {
         var source = "";
