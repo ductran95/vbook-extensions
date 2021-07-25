@@ -10,7 +10,7 @@ function execute(key, page) {
         page: page,
         btitle: key,
         listType: 'weight',
-        take: '8',
+        take: '24',
     }).string();
 
     var data = JSON.parse(json);

@@ -8,7 +8,7 @@ function execute(url) {
             "name": data.btitle_vi,
             "cover": data.bcover ? "/covers/" + data.bcover : "",
             "author": data.author_vi,
-            "description": doc.bintro.join("\n"),
+            "description": data.bintro.join("\n"),
             "detail": data.author_vi + "\n" + data.genres.join("\n") + (data.status == 0 ? "Còn tiếp" : "Hoàn thành") + "\n" + new Date(data.update).toLocaleString(),
             "ongoing": data.status == 0,
             "host": "https://chivi.xyz",
