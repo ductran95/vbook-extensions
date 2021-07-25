@@ -12,7 +12,7 @@ function execute(url) {
             "cover": data.bcover ? "/covers/" + data.bcover : "",
             "author": data.author_vi,
             "description": data.bintro.join(" "),
-            "detail": data.author_vi + " " + data.genres.join(" ") + (data.status == 0 ? "Còn tiếp" : "Hoàn thành") + " " + "Update: " + updateStr,
+            "detail": data.author_vi + " " + data.genres.join(" ") + " " + (data.status == 0 ? "Còn tiếp" : "Hoàn thành") + " " + "Update: " + updateStr,
             "ongoing": data.status == 0,
             "host": "https://chivi.xyz",
         });

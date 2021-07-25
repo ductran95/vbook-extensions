@@ -11,7 +11,7 @@ function execute(url) {
     chapList = data.chaps.map((item) => {
       return {
         name: item.title,
-        url: "/~" + urlData.book + "/~" + item.uslug,
+        url: "https://chivi.xyz/~" + urlData.book + "/~" + item.uslug,
         host: "https://chivi.xyz",
       };
     });
