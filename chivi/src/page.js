@@ -19,7 +19,12 @@ function execute(url) {
             }
         }
 
+        pageList.push(book.id);
+        pageList.push(source);
+
         var chapUrl = "https://chivi.xyz/api/chaps/" + book.id + "/" + source + "?mode=0" + "&page=";
+
+        pageList.push(chapUrl);
 
         var chapJson = Http.get(chapUrl + "1").string();
         var chapData = JSON.parse(chapJson);
