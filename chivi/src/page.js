@@ -5,6 +5,8 @@ function execute(url) {
 
     var pageList = [];
 
+    pageList.push(url);
+
     if (data) {
         var book = data.cvbook;
         var source = "";
@@ -14,7 +16,7 @@ function execute(url) {
             source = book.snames[si];
             var sourceData = book.chseed[source];
 
-            if (sourceData.utime == book.mftime) {
+            if (sourceData && sourceData.utime == book.mftime) {
                 break;
             }
         }
@@ -36,7 +38,8 @@ function execute(url) {
                     url: chapUrl + i.toString()
                 };
 
-                pageList.push(JSON.stringify(pageObj));
+                // pageList.push(JSON.stringify(pageObj));
+                pageList.push(chapUrl + i.toString());
             }
         }
     }

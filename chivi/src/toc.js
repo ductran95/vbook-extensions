@@ -1,7 +1,7 @@
 function execute(url) {
   return Response.success([{
     name: url,
-    url: "",
+    url: "/",
     host: "https://chivi.xyz",
   }]);
 
