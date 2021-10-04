@@ -22,9 +22,9 @@ function execute(url, page) {
         
         novelList = data.books.map(item => {
             return {
-                name: item.btitle_vi,
+                name: item.vtitle,
                 link: "/api/books/" + item.bslug,
-                description: item.author_vi,
+                description: item.vauthor,
                 cover: item.bcover ? "/covers/" + item.bcover : "",
                 host: "https://chivi.xyz"
             }
