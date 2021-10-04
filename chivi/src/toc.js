@@ -1,10 +1,4 @@
 function execute(url) {
-  return Response.success([{
-    name: url,
-    url: "/",
-    host: "https://chivi.xyz",
-  }]);
-
   var urlData = JSON.parse(url);
 
   var json = Http.get(urlData.url).string();
