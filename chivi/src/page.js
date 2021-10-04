@@ -11,9 +11,10 @@ function execute(url) {
 
         // Get source in chseed which has utime = book.mftime
         for (var si = 0; si < book.snames.length; si++) {
-            source = book.chseed[book.snames[si]];
+            source = book.snames[si];
+            var sourceData = book.chseed[source];
 
-            if (source == book.mftime) {
+            if (sourceData.utime == book.mftime) {
                 break;
             }
         }
