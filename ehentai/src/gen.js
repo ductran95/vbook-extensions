@@ -16,10 +16,10 @@ function execute(url, page) {
         nextUrl = url + '/?page=' + page;
     }
 
-    let repsonse = fetch(nextUrl);
+    let response = fetch(nextUrl);
 
-    if(repsonse.ok){
-        let doc = repsonse.html();
+    if(response.ok){
+        let doc = response.html();
         
         var next = "";
         var nextPage = doc.select(".ptt td.ptds + td a").text();

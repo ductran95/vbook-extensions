@@ -2,10 +2,10 @@ function execute(key, page) {
     if (!page) page = '0';
     const url = 'https://e-hentai.org/?f_search=' + key + '&page=' + page;
 
-    let repsonse = fetch(url);
+    let response = fetch(url);
 
-    if(repsonse.ok){
-        let doc = repsonse.html();
+    if(response.ok){
+        let doc = response.html();
         
         var next = "";
         var nextPage = doc.select(".ptt td.ptds + td a").text();

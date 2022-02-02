@@ -1,8 +1,8 @@
 function execute(url) {
-    let repsonse = fetch(url);
+    let response = fetch(url);
 
-    if(repsonse.ok){
-        let doc = repsonse.html();
+    if(response.ok){
+        let doc = response.html();
         
         var style = doc.select(".gm #gleft #gd1 div").attr("style");
         var urlIndex = style.indexOf("url(");

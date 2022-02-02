@@ -1,8 +1,8 @@
 function execute(url) {
-    let repsonse = fetch(url);
+    let response = fetch(url);
 
-    if(repsonse.ok){
-        let doc = repsonse.html();
+    if(response.ok){
+        let doc = response.html();
         
         var data = [];
 
@@ -11,9 +11,13 @@ function execute(url) {
         for (var i = 0; i < el.size(); i++) {
             var e = el.get(i);
             var imgUrl = e.attr("href");
-            var imgDoc = Http.get(imgUrl).html();
-            var img = imgDoc.select("#img");
-            data.push(img.attr("src"))
+
+            let responseImg = fetch(imgUrl);
+            if(responseImg.ok){
+                let docImg = responseImg.html();
+                var img = docImg.select("#img");
+                data.push(img.attr("src"))
+            }
         }
 
         // var el = doc.select("#gdt .gdtm div");

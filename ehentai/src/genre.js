@@ -1,9 +1,9 @@
 function execute() {
     let url = "https://e-hentai.org";
-    let repsonse = fetch(url);
+    let response = fetch(url);
 
-    if(repsonse.ok){
-        let doc = repsonse.html();
+    if(response.ok){
+        let doc = response.html();
         
         const el = doc.select(".itc .cs");
         const data = [];

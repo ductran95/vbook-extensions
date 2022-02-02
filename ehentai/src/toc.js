@@ -1,8 +1,8 @@
 function execute(url) {
-    let repsonse = fetch(url);
+    let response = fetch(url);
 
-    if(repsonse.ok){
-        let doc = repsonse.html();
+    if(response.ok){
+        let doc = response.html();
         
         var el = doc.select(".ptt td");
 
