@@ -2,7 +2,7 @@
   "metadata": {
     "name": "E-Hentai",
     "author": "purple_sunset",
-    "version": 5,
+    "version": 6,
     "source": "https://e-hentai.org/",
     "regexp": "(www.)?e-hentai.org/[^/+]+/?$",
     "description": "E-Hentai Galleries: The Free Hentai Doujinshi, Manga and Image Gallery System",
