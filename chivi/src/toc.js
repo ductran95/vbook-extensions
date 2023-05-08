@@ -18,7 +18,7 @@ function execute(url) {
                 data.forEach(e => {
                     chapList.push({
                         name: e.title,
-                        url: "/wn/" + doc.bslug + "/ch/_/" + e.schid + "/" + e.uslug + "--mt",
+                        url: "https://chivi.app/wn/" + doc.bslug + "/ch/_/" + e.schid + "/" + e.uslug + "--mt",
                         host: "https://chivi.app"
                     });
                 });
