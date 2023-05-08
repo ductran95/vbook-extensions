@@ -8,10 +8,12 @@
       "name": "Chivi",
       "author": "purple_sunset",
       "path": "https://raw.githubusercontent.com/purple-sunset/vbook-extensions/develop/chivi/plugin.zip",
-      "version": 54,
-      "source": "https://chivi.xyz",
+      "version": 10,
+      "source": "https://chivi.app",
       "icon": "https://raw.githubusercontent.com/purple-sunset/vbook-extensions/develop/chivi/icon.png",
-      "description": "Đọc truyện trên trang Chivi"
+      "description": "Đọc truyện trên trang Chivi",
+      "type": "novel",
+      "locale": "vi_VN"
     },
     {
       "name": "Hentai2Read",

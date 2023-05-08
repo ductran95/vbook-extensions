@@ -1,21 +1,36 @@
 function execute(url) {
-  var urlData = JSON.parse(url);
+    let response = fetch(url);
+    if (response.ok) {
+        let doc = response.json();
+        
+        let pageNo = 1;
+        let tocUrl = "/_wn/chaps/" + doc.id 
+        
+        let chapList = []
+        let hasChap = true;
+        while(hasChap) {
+            let tocResponse = fetch(tocUrl + "/_?pg=" + pageNo);
+            if (tocResponse.ok) {
+                let data = tocResponse.json();
+                hasChap = data.length > 0;
 
-  var json = Http.get(urlData.url).string();
+                data.forEach(e => {
+                    chapList.push({
+                        "name": e.title,
+                        "url": "/wn/" + doc.bslug + "/ch/_/" + e.schid + "/" + e.uslug + "--mt",
+                        "host": "https://chivi.app"
+                    });
+                });
+            }
+            else {
+                hasChap = false;
+            }
 
-  var data = JSON.parse(json);
+            pageNo++;
+        }
 
-  var chapList = [];
+        return Response.success(chapList);
+    }
 
-  if (data && data.chaps) {
-    chapList = data.chaps.map((item) => {
-      return {
-        name: item.title,
-        url: "/-" + urlData.book + "/-" + data.sname + "/-" + item.uslug + "-" + item.chidx,
-        host: "https://chivi.xyz",
-      };
-    });
-  }
-
-  return Response.success(chapList);
+    return null
 }

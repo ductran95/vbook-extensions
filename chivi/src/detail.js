@@ -1,24 +1,17 @@
 function execute(url) {
-    var json = Http.get(url).string();
-
-    var data = JSON.parse(json);
-
-    if (data) {
-        var book = data.cvbook;
-        var updateTime = new Date(book.mftime * 1000);
-        var updateStr = updateTime.getHours() + ":" + updateTime.getMinutes() + ":" + updateTime.getSeconds() 
-                        + " " + updateTime.getDate() + "/" + updateTime.getMonth() + "/" + updateTime.getFullYear()
-
+    let response = fetch(url);
+    if (response.ok) {
+        let doc = response.json();
+        
         return Response.success({
-            "name": book.vtitle,
-            "cover": book.bcover ? "/covers/" + book.bcover : "",
-            "author": book.vauthor,
-            "description": book.bintro.join(" "),
-            "detail": book.vauthor + " " + book.genres.join(" ") + " " + book.status + " " + "Update: " + updateStr,
-            "ongoing": book.status == 0,
-            "host": "https://chivi.xyz",
+            "name": doc.vtitle,
+            "cover": doc.bcover,
+            "host": "https://chivi.app",
+            "author": doc.vauthor,
+            "description": doc.bintro,
+            "detail": "Tác giả: " + doc.vauthor +"<br>" + "Thể loại: " + doc.genres.toString(),
+            "ongoing": doc.status == 0
         });
     }
-
     return null
 }
