@@ -1,25 +1,27 @@
 function execute(key, page) {
     if (!page) page = "1";
-    let response = fetch("https://chivi.app/books/query?q=" + key + "&pg=" + page);
+    page = parseInt(page);
+    let response = fetch("https://chivi.app/_db/books?btitle=" + key + "&pg=" + page + "&lm=24");
     if (response.ok) {
-        let doc = response.html();
+        let data = response.json();
         let next = "";
-        let nextPage = doc.select(".pagi a._primary").attr("href");
-        let pageRegex = /.*pg=(\d+)/g;
-        let result = pageRegex.exec(nextPage);
-        if (result) next = result[1];
-
         let novelList = [];
-        doc.select("book-list > a").forEach(e => novelList.push({
-            "name": e.select("._title").text(),
-            "link": e.select("a").first().attr("href"),
-            "description": e.select(".infos .info").get(1).text(),
-            "cover": "https://chivi.app" + e.select("source").first().attr("srcset"),
-            "host": "https://chivi.app"
-        }));
-
-
-        return Response.success(novelList, next);
+        if (data.books) {
+            let total = data.pgmax;
+            if (page < total) {
+                next = page + 1;
+            }
+            novelList = data.books.map(item => {
+                return {
+                    "name": item.vtitle,
+                    "link": "/_db/books/" + item.id + "/show",
+                    "description": item.vauthor,
+                    "cover": item.bcover,
+                    "host": "https://chivi.app"
+                }
+            });
+            return Response.success(novelList, next);
+        }
     }
     return null;
 

@@ -1,14 +1,13 @@
 function execute(url, page) {
     if (!page) page = "1";
-    page = parseInt(page)
+    page = parseInt(page);
     let response = fetch(url + "&pg=" + page + "&lm=24");
-    console.log(url + "&pg=" + page + "&lm=24")
     if (response.ok) {
         let data = response.json();
         let next = "";
         let novelList = [];
         if (data.books) {
-            let total = data.total;
+            let total = data.pgmax;
             if (page < total) {
                 next = page + 1;
             }
