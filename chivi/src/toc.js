@@ -8,30 +8,18 @@ function execute(url) {
         let pageNo = 1;
         let tocUrl = "https://chivi.app/_wn/chaps/" + doc.id;
 
-        chapList.push({
-            "name": tocUrl,
-            "url": tocUrl,
-            "host": "https://chivi.app"
-        });
-        
         let hasChap = true;
         while(hasChap) {
             let tocResponse = fetch(tocUrl + "/_?pg=" + pageNo.toString());
             if (tocResponse.ok) {
-                chapList.push({
-                    "name": tocResponse,
-                    "url": tocUrl,
-                    "host": "https://chivi.app"
-                });
-
                 let data = tocResponse.json();
                 hasChap = data.length > 0;
 
                 data.forEach(e => {
                     chapList.push({
-                        "name": e.title,
-                        "url": "/wn/" + doc.bslug + "/ch/_/" + e.schid + "/" + e.uslug + "--mt",
-                        "host": "https://chivi.app"
+                        name: e.title,
+                        url: "/wn/" + doc.bslug + "/ch/_/" + e.schid + "/" + e.uslug + "--mt",
+                        host: "https://chivi.app"
                     });
                 });
             }
