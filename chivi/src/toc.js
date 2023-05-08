@@ -1,6 +1,8 @@
 function execute(url) {
     let response = fetch(url);
     if (response.ok) {
+        let chapList = [];
+
         let doc = response.json();
         
         let pageNo = 1;
@@ -12,10 +14,9 @@ function execute(url) {
             "host": "https://chivi.app"
         });
         
-        let chapList = [];
         let hasChap = true;
         while(hasChap) {
-            let tocResponse = fetch(tocUrl + "/_?pg=" + pageNo);
+            let tocResponse = fetch(tocUrl + "/_?pg=" + pageNo.toString());
             if (tocResponse.ok) {
                 chapList.push({
                     "name": tocResponse,
