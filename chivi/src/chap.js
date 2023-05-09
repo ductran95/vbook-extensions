@@ -1,11 +1,217 @@
 function execute(url) {
-    let response = fetch(url);
+    let urlParts = url.split("/");
+    let cId = urlParts[urlParts.length - 2];
+    let sSlug = urlParts[urlParts.length - 5];
+    let sParts = sSlug.split("-");
+    let sId = sParts[0];
+    let sUrl = "https://chivi.app/_wn/chaps/" +  sId + "/_/" + cId;
+    
+    let response = fetch(sUrl);
 
     if (response.ok) {
-        let doc = response.html();
-        doc.select("article.article section h1#L0").remove();
-        return Response.success(doc.select("article.article section").html());
+        let doc = response.json();
+        let data = MtData.parse_cvmtl(doc.cvmtl);
+        let result = "";
+
+        data[0].forEach(e => {
+            result += "<p>" + e.text + "</p>";
+        });
+
+        return Response.success(result);
     }
 
     return null;
+}
+
+const escape_tags = { '&': '&amp;', '"': '&quot;', "'": '&apos;' }
+
+function escape_html(str) {
+  return str && str.replace(/[&<>]/g, (x) => escape_tags[x] || x)
+}
+
+class MtData {
+  data;
+  _html;
+  _text;
+
+  static parse_cvmtl(input = '') {
+    if (!input) return [[], 0, 0, '0-tong-hop']
+
+    const [lines, extra = ''] = input.split('\n$\t$\t$\n')
+    const args = extra.split('\t')
+
+    return [MtData.parse_lines(lines), +args[0], +args[1], args[2]]
+  }
+
+  static parse_lines(input = '') {
+    if (!input) return []
+    return input.split('\n').map((x) => new MtData(x))
+  }
+
+  constructor(input) {
+    this.data = this.parse(Array.from(input), 0)[0]
+  }
+
+  parse(chars, i) {
+    const data = []
+    let term = []
+    let word = ''
+
+    while (i < chars.length) {
+      const char = chars[i]
+      i += 1
+
+      switch (char) {
+        case '〉':
+          if (word) term.push(word)
+          if (term.length > 0) data.push(term)
+          return [data, i]
+
+        case '〈':
+          if (word) term.push(word)
+          if (term.length > 0) data.push(term)
+          const fold = chars[i]
+          const [child, j] = this.parse(chars, i + 1)
+          data.push([child, fold])
+          i = j
+
+          word = ''
+          term = []
+
+          break
+
+        case '\t':
+          if (word) term.push(word)
+          if (term.length > 0) data.push(term)
+
+          word = ''
+          term = []
+
+          break
+
+        case 'ǀ':
+          term.push(word)
+          word = ''
+          break
+
+        default:
+          word += char
+      }
+    }
+
+    if (word) term.push(word)
+    if (term.length > 0) data.push(term)
+
+    return [data, i]
+  }
+
+  get html() {
+    this._html = this._html || this.render_cv(this.data, false)
+    return this._html
+  }
+
+  get text() {
+    this._text = this._text || this.render_cv(this.data, true)
+    return this._text
+  }
+
+  render_cv(data = this.data, text = true, lvl = 0) {
+    let res = ''
+
+    for (const [val, dic, idx, len] of data) {
+      if (Array.isArray(val)) {
+        const inner = this.render_cv(val, text, lvl)
+
+        if (text) res += inner
+        else res += `<v-g data-d=${dic}>${inner}</v-g>`
+        continue
+      }
+
+      if (val == ' ') {
+        res += ' '
+        continue
+      }
+
+      const esc = escape_html(val)
+
+      if (text) res += esc
+      else {
+        const l = idx
+        const u = +idx + +len
+        res += `<v-n data-d=${dic} data-l=${l} data-u=${u}>${esc}</v-n>`
+      }
+    }
+
+    const first_val = data[0][0]
+
+    if (typeof first_val == 'string') {
+      const fval = first_val[0]
+
+      if (fval == '“' || fval == '‘') {
+        return '<em>' + res + '</em>'
+      } else if (fval == '⟨') {
+        return '<cite>' + res + '</cite>'
+      }
+    }
+
+    const last_val = data[data.length - 1][0]
+    if (typeof last_val == 'string') {
+      const lval = last_val[last_val.length - 1]
+
+      if (lval == '”' || lval == '’') {
+        lvl -= 1
+        res += '</em>'
+      } else if (lval == '⟩') {
+        res += '</cite>'
+      }
+    }
+
+    return res
+  }
+
+  render_hv() {
+    let res = ''
+
+    for (const [val, dic, idx, len] of this.data) {
+      if (val == ' ') {
+        res += ' '
+        continue
+      }
+
+      let chars = val.split(' ')
+
+      res += `<c-g data-d=${dic}>`
+      for (let j = 0; j < chars.length; j++) {
+        if (j > 0) res += ' '
+
+        const v = escape_html(chars[j])
+        const l = +idx + j
+        const u = l + 1
+        res += `<x-n data-d=2 data-l=${l} data-u=${u}>${v}</x-n>`
+      }
+      res += '</c-g>'
+    }
+
+    return res
+  }
+
+  static render_zh(input) {
+    let res = ''
+    let idx = 0
+
+    for (const chars of Array.from(input)) {
+      res += `<c-g data-d=1>`
+
+      for (let j = 0; j < chars.length; j++) {
+        const v = escape_html(chars[j])
+        const u = idx + 1
+        res += `<x-n data-d=2 data-l=${idx} data-u=${u}>${v}</x-n>`
+        idx += 1
+      }
+
+      res += '</c-g>'
+    }
+
+    return res
+  }
 }

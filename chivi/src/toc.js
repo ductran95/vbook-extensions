@@ -1,37 +1,35 @@
 function execute(url) {
-    let response = fetch(url);
-    if (response.ok) {
-        let chapList = [];
+    let urlParts = url.split("/");
+    let slug = urlParts[urlParts.length - 1];
+    let slugParts = slug.split("-");
+    let id = slugParts[0];
 
-        let doc = response.json();
-        
-        let pageNo = 1;
-        let tocUrl = "https://chivi.app/_wn/chaps/" + doc.id;
+    let chapList = [];
 
-        let hasChap = true;
-        while(hasChap) {
-            let tocResponse = fetch(tocUrl + "/_?pg=" + pageNo.toString());
-            if (tocResponse.ok) {
-                let data = tocResponse.json();
-                hasChap = data.length > 0;
+    let pageNo = 1;
+    let tocUrl = "https://chivi.app/_wn/chaps/" + id;
 
-                data.forEach(e => {
-                    chapList.push({
-                        name: e.title,
-                        url: "/wn/" + doc.bslug + "/ch/_/" + e.schid + "/" + e.uslug + "--mt",
-                        host: "https://chivi.app"
-                    });
+    let hasChap = true;
+    while(hasChap) {
+        let tocResponse = fetch(tocUrl + "/_?pg=" + pageNo.toString());
+        if (tocResponse.ok) {
+            let data = tocResponse.json();
+            hasChap = data.length > 0;
+
+            data.forEach(e => {
+                chapList.push({
+                    name: e.title,
+                    url: "/wn/" + slug + "/ch/_/" + e.schid + "/" + e.uslug + "--mt",
+                    host: "https://chivi.app"
                 });
-            }
-            else {
-                hasChap = false;
-            }
-
-            pageNo++;
+            });
+        }
+        else {
+            hasChap = false;
         }
 
-        return Response.success(chapList);
+        pageNo++;
     }
 
-    return null;
+    return Response.success(chapList);
 }

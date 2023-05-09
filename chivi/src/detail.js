@@ -1,5 +1,11 @@
 function execute(url) {
-    let response = fetch(url);
+    let urlParts = url.split("/");
+    let slug = urlParts[urlParts.length - 1];
+    let slugParts = slug.split("-");
+    let id = slugParts[0];
+
+    let sUrl = "https://chivi.app/_db/books/" + id + "/show";
+    let response = fetch(sUrl);
     if (response.ok) {
         let doc = response.json();
         
