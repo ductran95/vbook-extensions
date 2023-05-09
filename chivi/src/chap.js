@@ -32,8 +32,8 @@ function escape_html(str) {
 function parse_cvmtl(input) {
   if (!input) return [[], 0, 0, '0-tong-hop']
 
-  const [lines, extra = ''] = input.split('\n$\t$\t$\n')
-  const args = extra.split('\t')
+  const [lines, extra] = input.split('\n$\t$\t$\n')
+  // const args = extra.split('\t')
 
   return parse_lines(lines);
 }
