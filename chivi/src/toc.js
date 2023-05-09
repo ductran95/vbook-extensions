@@ -6,8 +6,26 @@ function execute(url) {
 
     let chapList = [];
 
+    chapList.push({
+        name: slug,
+        url: url,
+        host: "https://chivi.app"
+    });
+
+    chapList.push({
+        name: id,
+        url: url,
+        host: "https://chivi.app"
+    });
+
     let pageNo = 1;
     let tocUrl = "https://chivi.app/_wn/chaps/" + id;
+
+    chapList.push({
+        name: tocUrl,
+        url: tocUrl,
+        host: "https://chivi.app"
+    });
 
     let hasChap = true;
     while(hasChap) {

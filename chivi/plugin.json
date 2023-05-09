@@ -2,7 +2,7 @@
   "metadata": {
     "name": "Chivi",
     "author": "purple_sunset",
-    "version": 21,
+    "version": 22,
     "source": "https://chivi.app",
     "regexp": "(www.)?chivi.app.*",
     "description": "Đọc truyện trên trang Chivi",
