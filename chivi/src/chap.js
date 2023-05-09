@@ -4,7 +4,7 @@ function execute(url) {
     let sSlug = urlParts[urlParts.length - 5];
     let sParts = sSlug.split("-");
     let sId = sParts[0];
-    let sUrl = "https://chivi.app/_wn/chaps/" +  sId + "/_/" + cId;
+    let sUrl = "https://chivi.app/_wn/chaps/" + sId + "/_/" + cId;
     
     let response = fetch(sUrl);
 
@@ -26,10 +26,10 @@ function execute(url) {
 const escape_tags = { '&': '&amp;', '"': '&quot;', "'": '&apos;' }
 
 function escape_html(str) {
-  return str && str.replace(/[&<>]/g, (x) => escape_tags[x] || x)
+  return str && str.replace(/[&<>]/g, x => escape_tags[x] || x)
 }
 
-function parse_cvmtl(input = '') {
+function parse_cvmtl(input) {
   if (!input) return [[], 0, 0, '0-tong-hop']
 
   const [lines, extra = ''] = input.split('\n$\t$\t$\n')
@@ -38,9 +38,9 @@ function parse_cvmtl(input = '') {
   return parse_lines(lines);
 }
 
-function parse_lines(input = '') {
+function parse_lines(input) {
   if (!input) return []
-  return input.split('\n').map((x) => {
+  return input.split('\n').map(x => {
     let data = parse(Array.from(x), 0)[0];
     return text(data)
   })
