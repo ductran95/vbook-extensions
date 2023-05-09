@@ -13,7 +13,7 @@ function execute(url) {
         let data = parse_cvmtl(doc.cvmtl);
         let result = "";
 
-        data[0].forEach(e => {
+        data.forEach(e => {
             result += "<p>" + e.text + "</p>";
         });
 

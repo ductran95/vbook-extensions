@@ -8,33 +8,9 @@ function execute(url) {
     let pageNo = 1;
     let tocUrl = "https://chivi.app/_wn/chaps/" + id;
     let hasChap = true;
-
-    chapList.push({
-        name: slug,
-        url: url,
-        host: "https://chivi.app"
-    });
-
-    chapList.push({
-        name: id,
-        url: url,
-        host: "https://chivi.app"
-    });
-
-    chapList.push({
-        name: tocUrl,
-        url: tocUrl,
-        host: "https://chivi.app"
-    });
     
     while(hasChap) {
         let tocResponse = fetch(tocUrl + "/_?pg=" + pageNo.toString());
-        chapList.push({
-            name: tocUrl + "/_?pg=" + pageNo.toString(),
-            url: tocUrl + "/_?pg=" + pageNo.toString(),
-            host: "https://chivi.app"
-        });
-
         if (tocResponse.ok) {
             let data = tocResponse.json();
             hasChap = data.length > 0;
@@ -54,5 +30,9 @@ function execute(url) {
         pageNo++;
     }
 
+    if(chapList.length == 0) {
+        return null;
+    }
+    
     return Response.success(chapList);
 }
