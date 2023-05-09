@@ -19,7 +19,7 @@ function execute(url) {
         let result = "";
 
         data.forEach(e => {
-          chapData += "<p>" + e + "</p>";
+          result += "<p>" + e + "</p>";
         });
 
         return Response.success(chapData);
