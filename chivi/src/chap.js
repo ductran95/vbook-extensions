@@ -14,7 +14,7 @@ function execute(url) {
         let result = "";
 
         data.forEach(e => {
-            result += "<p>" + e.text + "</p>";
+            result += "<p>" + e + "</p>";
         });
 
         return Response.success(result);
