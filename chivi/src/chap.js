@@ -1,3 +1,5 @@
+let chapData = "";
+
 function execute(url) {
     let urlParts = url.split("/");
     let cId = urlParts[urlParts.length - 2];
@@ -10,14 +12,17 @@ function execute(url) {
 
     if (response.ok) {
         let doc = response.json();
+
+        chapData += doc.cvmtl;
+
         let data = parse_cvmtl(doc.cvmtl);
         let result = "";
 
         data.forEach(e => {
-            result += "<p>" + e + "</p>";
+          chapData += "<p>" + e + "</p>";
         });
 
-        return Response.success(result);
+        return Response.success(chapData);
     }
 
     return null;
@@ -40,7 +45,12 @@ function parse_cvmtl(input) {
 
 function parse_lines(input) {
   if (!input) return []
+
+  chapData += input;
+
   return input.split('\n').map(x => {
+    chapData += x;
+
     let data = parse(Array.from(x), 0)[0];
     return text(data)
   })
@@ -112,6 +122,11 @@ function render_cv(data, text, lvl) {
     let dic = item[1];
     let idx = item[2];
     let len = item[3];
+
+    chapData += val;
+    chapData += dic;
+    chapData += idx;
+    chapData += len;
 
     if (Array.isArray(val)) {
       const inner = render_cv(val, text, lvl)
