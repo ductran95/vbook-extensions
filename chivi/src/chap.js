@@ -106,7 +106,13 @@ function text(data) {
 function render_cv(data, text, lvl) {
   let res = ''
 
-  for (const [val, dic, idx, len] of data) {
+  for (let i = 0; i < data.length; i++) {
+    let item = data[i];
+    let val = item[0];
+    let dic = item[1];
+    let idx = item[2];
+    let len = item[3];
+
     if (Array.isArray(val)) {
       const inner = render_cv(val, text, lvl)
 
