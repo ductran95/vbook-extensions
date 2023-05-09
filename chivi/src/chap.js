@@ -100,10 +100,10 @@ function parse(chars, i) {
 }
 
 function text(data) {
-  return render_cv(data, true)
+  return render_cv(data, true, 0)
 }
 
-function render_cv(data, text = true, lvl = 0) {
+function render_cv(data, text, lvl) {
   let res = ''
 
   for (const [val, dic, idx, len] of data) {
