@@ -10,7 +10,7 @@ function execute(url) {
 
     if (response.ok) {
         let doc = response.json();
-        let data = MtData.parse_cvmtl(doc.cvmtl);
+        let data = parse_cvmtl(doc.cvmtl);
         let result = "";
 
         data[0].forEach(e => {
@@ -29,189 +29,130 @@ function escape_html(str) {
   return str && str.replace(/[&<>]/g, (x) => escape_tags[x] || x)
 }
 
-class MtData {
-  data;
-  _html;
-  _text;
+function parse_cvmtl(input = '') {
+  if (!input) return [[], 0, 0, '0-tong-hop']
 
-  static parse_cvmtl(input = '') {
-    if (!input) return [[], 0, 0, '0-tong-hop']
+  const [lines, extra = ''] = input.split('\n$\t$\t$\n')
+  const args = extra.split('\t')
 
-    const [lines, extra = ''] = input.split('\n$\t$\t$\n')
-    const args = extra.split('\t')
+  return parse_lines(lines);
+}
 
-    return [MtData.parse_lines(lines), +args[0], +args[1], args[2]]
+function parse_lines(input = '') {
+  if (!input) return []
+  return input.split('\n').map((x) => {
+    let data = parse(Array.from(x), 0)[0];
+    return text(data)
+  })
+}
+
+function parse(chars, i) {
+  const data = []
+  let term = []
+  let word = ''
+
+  while (i < chars.length) {
+    const char = chars[i]
+    i += 1
+
+    switch (char) {
+      case '〉':
+        if (word) term.push(word)
+        if (term.length > 0) data.push(term)
+        return [data, i]
+
+      case '〈':
+        if (word) term.push(word)
+        if (term.length > 0) data.push(term)
+        const fold = chars[i]
+        const [child, j] = parse(chars, i + 1)
+        data.push([child, fold])
+        i = j
+
+        word = ''
+        term = []
+
+        break
+
+      case '\t':
+        if (word) term.push(word)
+        if (term.length > 0) data.push(term)
+
+        word = ''
+        term = []
+
+        break
+
+      case 'ǀ':
+        term.push(word)
+        word = ''
+        break
+
+      default:
+        word += char
+    }
   }
 
-  static parse_lines(input = '') {
-    if (!input) return []
-    return input.split('\n').map((x) => new MtData(x))
-  }
+  if (word) term.push(word)
+  if (term.length > 0) data.push(term)
 
-  constructor(input) {
-    this.data = this.parse(Array.from(input), 0)[0]
-  }
+  return [data, i]
+}
 
-  parse(chars, i) {
-    const data = []
-    let term = []
-    let word = ''
+function text(data) {
+  return render_cv(data, true)
+}
 
-    while (i < chars.length) {
-      const char = chars[i]
-      i += 1
+function render_cv(data, text = true, lvl = 0) {
+  let res = ''
 
-      switch (char) {
-        case '〉':
-          if (word) term.push(word)
-          if (term.length > 0) data.push(term)
-          return [data, i]
+  for (const [val, dic, idx, len] of data) {
+    if (Array.isArray(val)) {
+      const inner = render_cv(val, text, lvl)
 
-        case '〈':
-          if (word) term.push(word)
-          if (term.length > 0) data.push(term)
-          const fold = chars[i]
-          const [child, j] = this.parse(chars, i + 1)
-          data.push([child, fold])
-          i = j
-
-          word = ''
-          term = []
-
-          break
-
-        case '\t':
-          if (word) term.push(word)
-          if (term.length > 0) data.push(term)
-
-          word = ''
-          term = []
-
-          break
-
-        case 'ǀ':
-          term.push(word)
-          word = ''
-          break
-
-        default:
-          word += char
-      }
+      if (text) res += inner
+      else res += `<v-g data-d=${dic}>${inner}</v-g>`
+      continue
     }
 
-    if (word) term.push(word)
-    if (term.length > 0) data.push(term)
-
-    return [data, i]
-  }
-
-  get html() {
-    this._html = this._html || this.render_cv(this.data, false)
-    return this._html
-  }
-
-  get text() {
-    this._text = this._text || this.render_cv(this.data, true)
-    return this._text
-  }
-
-  render_cv(data = this.data, text = true, lvl = 0) {
-    let res = ''
-
-    for (const [val, dic, idx, len] of data) {
-      if (Array.isArray(val)) {
-        const inner = this.render_cv(val, text, lvl)
-
-        if (text) res += inner
-        else res += `<v-g data-d=${dic}>${inner}</v-g>`
-        continue
-      }
-
-      if (val == ' ') {
-        res += ' '
-        continue
-      }
-
-      const esc = escape_html(val)
-
-      if (text) res += esc
-      else {
-        const l = idx
-        const u = +idx + +len
-        res += `<v-n data-d=${dic} data-l=${l} data-u=${u}>${esc}</v-n>`
-      }
+    if (val == ' ') {
+      res += ' '
+      continue
     }
 
-    const first_val = data[0][0]
+    const esc = escape_html(val)
 
-    if (typeof first_val == 'string') {
-      const fval = first_val[0]
-
-      if (fval == '“' || fval == '‘') {
-        return '<em>' + res + '</em>'
-      } else if (fval == '⟨') {
-        return '<cite>' + res + '</cite>'
-      }
+    if (text) res += esc
+    else {
+      const l = idx
+      const u = +idx + +len
+      res += `<v-n data-d=${dic} data-l=${l} data-u=${u}>${esc}</v-n>`
     }
-
-    const last_val = data[data.length - 1][0]
-    if (typeof last_val == 'string') {
-      const lval = last_val[last_val.length - 1]
-
-      if (lval == '”' || lval == '’') {
-        lvl -= 1
-        res += '</em>'
-      } else if (lval == '⟩') {
-        res += '</cite>'
-      }
-    }
-
-    return res
   }
 
-  render_hv() {
-    let res = ''
+  const first_val = data[0][0]
 
-    for (const [val, dic, idx, len] of this.data) {
-      if (val == ' ') {
-        res += ' '
-        continue
-      }
+  if (typeof first_val == 'string') {
+    const fval = first_val[0]
 
-      let chars = val.split(' ')
-
-      res += `<c-g data-d=${dic}>`
-      for (let j = 0; j < chars.length; j++) {
-        if (j > 0) res += ' '
-
-        const v = escape_html(chars[j])
-        const l = +idx + j
-        const u = l + 1
-        res += `<x-n data-d=2 data-l=${l} data-u=${u}>${v}</x-n>`
-      }
-      res += '</c-g>'
+    if (fval == '“' || fval == '‘') {
+      return '<em>' + res + '</em>'
+    } else if (fval == '⟨') {
+      return '<cite>' + res + '</cite>'
     }
-
-    return res
   }
 
-  static render_zh(input) {
-    let res = ''
-    let idx = 0
+  const last_val = data[data.length - 1][0]
+  if (typeof last_val == 'string') {
+    const lval = last_val[last_val.length - 1]
 
-    for (const chars of Array.from(input)) {
-      res += `<c-g data-d=1>`
-
-      for (let j = 0; j < chars.length; j++) {
-        const v = escape_html(chars[j])
-        const u = idx + 1
-        res += `<x-n data-d=2 data-l=${idx} data-u=${u}>${v}</x-n>`
-        idx += 1
-      }
-
-      res += '</c-g>'
+    if (lval == '”' || lval == '’') {
+      lvl -= 1
+      res += '</em>'
+    } else if (lval == '⟩') {
+      res += '</cite>'
     }
-
-    return res
   }
+
+  return res
 }
